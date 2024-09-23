@@ -56,7 +56,7 @@ const Navbar = () => {
 };
 
 const StyledNav = styled.nav`
-  background-color: #333;
+  background-color: transparent;
   padding: 1rem;
 `;
 

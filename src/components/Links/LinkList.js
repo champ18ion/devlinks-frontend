@@ -11,22 +11,53 @@ const LinkListContainer = styled.div`
 `;
 
 const LinkListTitle = styled.h2`
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+ position: fixed;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  overflow: hidden;
+  margin-left: 20px;
+
+  &:before {
+  content: "YOUR TEXT HERE ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: rgba(0, 0, 0, 0.05);
+  font-size: 10rem;
+  letter-spacing: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: -1;
+  opacity: 0.1;
+  transform: rotate(-45deg);
+  }
 `;
 
 const LinkListUl = styled.ul`
   list-style-type: none;
   padding: 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2em;
+  display: grid;
 `;
 
 const LinkListItemContainer = styled.li`
-  background-color: #f5f5f5;
+ background-color: rgba(255, 255, 255, 0.2); /* Translucent white */
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px); /* Frosted glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: none; /* Optional: slight border to enhance effect */
+  color: #fff; /* Text color */
 `;
 
 const LinkTitle = styled.h3`
@@ -162,8 +193,10 @@ const LinkList = () => {
   }, []);
 
   return (
+    <>
+    <LinkListTitle>MY LINKS</LinkListTitle>
     <LinkListContainer>
-      <LinkListTitle>Your Links</LinkListTitle>
+     
       <LinkListUl>
         {links.map(link => (
           <LinkListItem
@@ -176,6 +209,7 @@ const LinkList = () => {
         ))}
       </LinkListUl>
     </LinkListContainer>
+    </>
   );
 };
 
