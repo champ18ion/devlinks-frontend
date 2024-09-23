@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
       setUser({ id: decodedToken.userId, email: decodedToken.email });  // Set user info in state
     } else {
       delete axios.defaults.headers.common['Authorization'];
+      setUser(null);
     }
   }, [token]);
 

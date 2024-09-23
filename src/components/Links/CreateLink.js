@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -46,17 +49,53 @@ const StyledButton = styled.button`
 `;
 
 const CreateLink = () => {
-  const [formData, setFormData] = useState({ title: '', url: '', description: '', category: '' });
+  const [formData, setFormData] = useState({ title: '', url: '', description: '', category: '', isPublic: false });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`${process.env.REACT_APP_API_URL}/links`, formData);
-    // Optionally, handle success (e.g., redirect or show a message)
+  
+    try {
+      // Post the link data to the server
+      await axios.post(`${process.env.REACT_APP_API_URL}/links`, formData);
+  
+      // Clear the form data after successful submission
+      setFormData({ title: '', url: '', description: '', category: '' });
+  
+      // Show a success toast notification
+      toast.success('Link created successfully!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+  
+      // Redirect to the links page
+      navigate('/links');
+  
+    } catch (error) {
+      console.error('Error creating link:', error);
+  
+      // Show an error toast notification
+      toast.error('Failed to create link. Please try again.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
+
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -64,7 +103,11 @@ const CreateLink = () => {
       <StyledInput type="url" name="url" placeholder="URL" onChange={handleChange} required />
       <StyledTextArea name="description" placeholder="Description" onChange={handleChange} required />
       <StyledInput type="text" name="category" placeholder="Category" onChange={handleChange} required />
+      <div>
+      <input type="checkbox" name="isPublic" onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })} /> Public Link
+      </div>
       <StyledButton type="submit">Create Link</StyledButton>
+      <ToastContainer />
     </StyledForm>
   );
 };

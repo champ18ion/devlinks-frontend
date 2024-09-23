@@ -6,6 +6,7 @@ import Signin from './components/Auth/Signin';
 import CreateLink from './components/Links/CreateLink';
 import LinkList from './components/Links/LinkList';
 import Navbar from './components/navbar';
+import PublicFeed from './components/Links/Publicfeed';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/create-link" element={<CreateLink />} />
           <Route path="/links" element={<LinkList />} />
-          <Route path="/" element={<LinkList />} />
+          <Route path="/" element={<PublicFeed />} />
         </Routes>
       </Router>
     </AuthProvider>
