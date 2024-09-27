@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext, useCallback, memo } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import styled , { css, keyframes }  from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 // Styled components (same as before)
 const LinkListContainer = styled.div`
-  max-width: 800px;
+  max-width: 80vw;
   margin: 0 auto;
   padding: 20px;
 `;
@@ -348,49 +348,49 @@ const LinkListItem = memo(({ link, upvoted, onUpvote, onDownvote }) => {
   const [flipped, setFlipped] = useState(false);
   return (
     <>
-    
+
       {!flipped ? (<>
         <LinkListItemContainer key={link.id} title={link.title} className={flipped ? 'flipped' : ''}>
-        <CategoryBadge category={link.category}>{link.category}</CategoryBadge>
-      <LinkTitle>{link.title}</LinkTitle>
-      <LinkDescription>{" "}</LinkDescription>
+          <CategoryBadge category={link.category}>{link.category}</CategoryBadge>
+          <LinkTitle>{link.title}</LinkTitle>
+          <LinkDescription>{" "}</LinkDescription>
 
-      <VoteContainer>
-        {upvoted ? (
-          <VoteButton $upvoted onClick={() => onDownvote(link.id)}>
-            <i className="fas fa-thumbs-down"></i>
-          </VoteButton>
-        ) : (
-          <VoteButton onClick={() => onUpvote(link.id)}>
-            <i className="fas fa-thumbs-up"></i>
-          </VoteButton>
-        )}
-      </VoteContainer>
-      <LinkIconButton href={link.url} target="_blank" rel="noopener noreferrer">
-  <i className="fas fa-external-link-alt"></i>
-</LinkIconButton>
-<ToggleButton onClick={() => setFlipped(!flipped)}>
-          <i className="fas fa-info-circle"></i>
-        </ToggleButton>
-</LinkListItemContainer>
-      </>):(<>
+          <VoteContainer>
+            {upvoted ? (
+              <VoteButton $upvoted onClick={() => onDownvote(link.id)}>
+                <i className="fas fa-thumbs-up"></i>
+              </VoteButton>
+            ) : (
+              <VoteButton onClick={() => onUpvote(link.id)}>
+                <i className="far fa-thumbs-up"></i>
+              </VoteButton>
+            )}
+          </VoteContainer>
+          <LinkIconButton href={link.url} target="_blank" rel="noopener noreferrer">
+            <i className="fas fa-external-link-alt"></i>
+          </LinkIconButton>
+          <ToggleButton onClick={() => setFlipped(!flipped)}>
+            <i className="fas fa-info-circle"></i>
+          </ToggleButton>
+        </LinkListItemContainer>
+      </>) : (<>
         <LinkListItemContainer key={link.id} title={''} className={flipped ? 'flipped' : ''}>
-        <CategoryBadge category={link.category}>{" "}</CategoryBadge>
-      <LinkTitle>{" "}</LinkTitle>
-      <LinkDescription>{link.description}</LinkDescription>
+          <CategoryBadge category={link.category}>{" "}</CategoryBadge>
+          <LinkTitle>{" "}</LinkTitle>
+          <LinkDescription>{link.description}</LinkDescription>
 
-      <VoteContainer>
-       {" "}
-      </VoteContainer>
-      <LinkIconButton href={link.url} target="_blank" rel="noopener noreferrer">
-  <i className="fas fa-external-link-alt"></i>
-</LinkIconButton>
-<ToggleButton onClick={() => setFlipped(!flipped)}>
-          <i className="fas fa-info-circle"></i>
-        </ToggleButton>
-</LinkListItemContainer>
+          <VoteContainer>
+            {" "}
+          </VoteContainer>
+          <LinkIconButton href={link.url} target="_blank" rel="noopener noreferrer">
+            <i className="fas fa-external-link-alt"></i>
+          </LinkIconButton>
+          <ToggleButton onClick={() => setFlipped(!flipped)}>
+            <i className="fas fa-info-circle"></i>
+          </ToggleButton>
+        </LinkListItemContainer>
       </>)}
-     
+
 
 
     </>
@@ -485,26 +485,26 @@ const LinkList = () => {
       <LinkListContainer>
         {/* Search Input */}
         <div>
-        <SearchInput
-          type="text"
-          placeholder="Search links..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+          <SearchInput
+            type="text"
+            placeholder="Search links..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
 
-        {/* Filter Dropdown */}
-        <FilterSelect
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          {/* Map through unique categories */}
-          {uniqueCategories.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
-        </FilterSelect>
+          {/* Filter Dropdown */}
+          <FilterSelect
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            {/* Map through unique categories */}
+            {uniqueCategories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </FilterSelect>
         </div>
         <LinkListUl>
           {filteredAndSearchedLinks.map(link => (
